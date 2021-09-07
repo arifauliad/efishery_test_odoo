@@ -1,0 +1,41 @@
+# # Composition for development
+
+version: '2'
+volumes:
+  odoo-data:
+  db-data:
+services: 
+  db:
+    container_name: db
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+
+  odoo:
+    container_name: odoo
+    image: odoo:14.0
+    depends_on:
+      - db
+    ports:
+      - 8079:8069
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./efishery_odoo:/mnt/efishery_odoo
+      - ./odoo_conf:/etc/odoo
+    command: odoo --dev=reload
+
+  python_bridge:
+      build: ./efishery_bridge/
+      volumes:
+        - ./efishery_bridge/:/usr/src/app/
+      ports: 
+        - 5001:5000
+      depends_on:
+      - odoo
