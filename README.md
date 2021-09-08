@@ -27,3 +27,18 @@ Setting token pada menu setting - efishery
 Test dengan menggunakan command
 curl -X 'GET' 'http://127.0.0.1:5001/order/1' -H 'accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: static_token'
 ![Screen Shot 2021-09-07 at 16 22 44](https://user-images.githubusercontent.com/48560951/132320422-7c185e35-ed8b-4836-b1df-d9f929901a53.png)
+
+Untuk API yang tersedia
+Get 1 Order
+Method: GET
+Url: host:port/order/{order_id}
+
+Save Order
+Method: POST
+Url: host:port/order/
+
+Update Order
+Method: PUT
+Url: host:port/order/{order_id}
+
+Data yang digunakan sesuai dengan yg ada pada soal test
